@@ -2,4 +2,4 @@
 
 Python version == 3.8
 
-Manim of 3b1b , not the community edition
+Manim of 3b1b , not the community edition.
