@@ -1,0 +1,32 @@
+首先，我们来介绍一下构造证据决策树的整体流程。第一步，是对原数据进行处理，我们对各个属性建立识别框架，使用质量函数来表示数据集，以此得到新数据集。
+
+First, let's introduce the overall process of constructing an evidence decision tree. The first step is to process the original data. We establish a framework of discernment for each attribute, use the mass function to represent the data set to obtain a new data set.
+
+第二步，进入递归构造树结构的过程，选择当前的最佳属性划分数据集，重复这一步骤直到满足递归停止条件。
+
+The second step is to enter the process of recursively constructing the tree structure, select the current best attribute to divide the data set, and repeat this step until the recursive stop condition is met.
+
+第三步，对各个叶节点的数据集进行处理，来获得一个统一标签代表这个叶节点。
+
+The third step is to process the data set of each leaf node to obtain a unified label to represent the leaf node.
+
+最后，在预测时，对多个叶节点进行证据融合操作得出最终分类结果。
+
+Finally, when predicting, use the  combination rule to combine multiple leaf nodes to obtain the final classification result.
+
+我们来介绍一些基本符号的意义，A表示某个属性，theta表示某个某个属性的识别框架。举例来说，该数据集的第一个属性为ability，识别框架 为G，Y，B，分别代表好、中、差。其幂集所有可能为......如图中第一个数据的第一个属性下的值表示为....其表示它的ability有0.8的可能性是good，有0.2的可能性是bad。我们使用集合圆来表示识别框架，其相交的所有可能即为识别框架的所有可能值。
+
+Let's introduce the meaning of some basic symbols, A represents an attribute, and theta represents the frame of discernment of a certain attribute. For example, the first attribute of the dataset is ability, and the frame of discernment  are G, Y, and B, which represent good, medium, and bad respectively. Its power set is its all possible.set which is emptyset ,setG,Y,B,GY,GB,YB and GYB .The value under the first attribute of the first data in the figure is expressed as.... It means that its ability has a 80 percent possibility is good, and has a 20 percent possibility  is bad. We use the set circle to represent he frame of discernment, and all possible values of its intersection are the  all possible values of the frame of discernment
+
+接下来，我们使用刚刚所展示的数据集来构造一棵证据决策树。首先，我们以证据距离来选出各个属性中最具有区分能力的一个，是ability。将其作为根节点。然后以其所有的幂集元素建立分支。我们就有了8条分支，分别是......。随后就是按照如图公式划分数据集，简单来说，就是找出各个数据的该属性下的最大质量函数，然后进入相应的分支。我们仍然以第一个数据为例，我们可以看到，该数据中质量函数最大的为G=0.8，所以它就进入G的分支。以此类推，我们划分完所以数据，得到如图。此时，我们需要对各个分支进行判断其是否，如果该分支是空的或者分支上的数据集的最大质量函数低于阈值，我们需要删去该分支，如图中的......重复上述步骤直到满足停止条件，则证据决策树构造成功。
+
+Next, we construct an evidence decision tree using the dataset just shown. First, we use the distance of evidence to select the one with the most distinguishing capability among the attributes, which is ability . Make it as  the root node. Then branches are created with all of its power set elements. We now have 8 branches, which are Branch G ...and so on,  Then, the data set is divided according to the formula as shown in the figure. In short, it is to find the maximum mass function under the attribute of the current  data, and then enter the corresponding branch. We still take the first data as an example, we can see that the max mass function in this data instance is G=0.8, so it enters the branch  G. And so on, we divide all the data and get the figure. At this point, we need to judge whether each branch is empty or the maximum max function of the dataset on the branch is lower than the threshold, we need to delete the eligible branch, so we delete the set GY, setYB and set BG.. Repeat the above steps until the stopping condition is met, then the evidence decision tree is constructed successfully.
+
+在预测时，新数据会到达两个及以上的叶节点。我们假设对如下的新数据实例进行预测，其到达了叶节点..和..。此时叶节点还没有统一的标签，因此我们需要对叶节点进行处理。e13节点中有两组质量函数，我们对其进行合并取均值处理。
+
+At prediction time, new data instance  arrives at two or more leaf nodes. We assume that predictions are made on a new data instance as show , which reach the leaf nodes five and the leaf node one three.  At this time, the leaf nodes do not have uniform labels, so we need to process the leaf nodes. There are two sets of mass functions in the e13 node, which we need to  merge by taking the average.
+
+最后，为了得到分类结果，我们需要对两个叶节点进行证据融合。分别按照之前的证据距离计算出叶节点与新数据实例之前的关联性作为证据融合的权重，进行融合，得出新数据实例各个可能性的值大小。
+
+Finally, to get the classification result, we need to use the combination rule on the two leaf nodes. According to the previous evidence distance, the correlation between the leaf node and the new data instance is calculated as the weight of combineation  rule , and the fusion is performed to obtain the value of each possibility of the new data instance.
+
